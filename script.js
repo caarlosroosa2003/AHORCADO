@@ -1,3 +1,4 @@
+// Lista de palabras para adivinar
 let words = [
     "PROGRAMACION", "DESARROLLO",
     "ELEFANTE", "DELFIN", "JIRAFA", "MARIPOSA", "CANGURO",
@@ -7,12 +8,14 @@ let words = [
     "ROJO", "AZUL", "VERDE", "AMARILLO", "MORADO"
 ];
 
+// Evento para resetear el juego
 document.getElementById('resetButton').addEventListener('click', function() {
     initGame();
     document.getElementById('guessButton').disabled = false;
     document.getElementById('resetButton').style.display = 'none';
 });
 
+// Evento para reiniciar el juego estando en mitad de la partida
 document.getElementById('restartButton').addEventListener('click', function() {
     initGame();
     document.getElementById('guessButton').disabled = false;
@@ -24,6 +27,7 @@ let attempts;
 let guessedLetters;
 let wordDisplay;
 
+// Iniciar el juego
 function initGame() {
     selectedWord = words[Math.floor(Math.random() * words.length)];
     attempts = 6;
@@ -37,6 +41,8 @@ function initGame() {
     updateImages();
 }
 
+// Funcion que en el caso de acertar la letra actualiza la interfaz
+// y en el caso de ser erronea la letra resta un intento
 function guessLetter() {
     const letterInput = document.getElementById('letterInput');
     const letter = letterInput.value.toUpperCase();  // Convertir la letra ingresada a mayúsculas
@@ -71,6 +77,7 @@ function guessLetter() {
     }
 }
 
+// Actualiza la interfaz
 function updateDisplay() {
     document.getElementById('word').innerText = wordDisplay.join(' ');
     document.getElementById('attempts').innerText = attempts;
@@ -78,13 +85,15 @@ function updateDisplay() {
     updateImages();
 }
 
+// Actualiza la imagen dependiendo de los intentos que quedan
 function updateImages() {
     const image = document.getElementById('person');
     image.src = `img/${attempts + 1}.png`;
 }
 
+// Evento para cuando clickes en el boton de adivinar letra en el caso de acertar actualizar la interfaz
+// y en el caso de ser erronea la letra restarte un intento
 document.getElementById('guessButton').addEventListener('click', guessLetter);
-document.getElementById('resetButton').addEventListener('click', initGame);
 
 // Iniciar el juego al cargar la página
 initGame();
