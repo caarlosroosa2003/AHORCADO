@@ -7,6 +7,18 @@ let words = [
     "ROJO", "AZUL", "VERDE", "AMARILLO", "MORADO"
 ];
 
+document.getElementById('resetButton').addEventListener('click', function() {
+    initGame();
+    document.getElementById('guessButton').disabled = false;
+    document.getElementById('resetButton').style.display = 'none';
+});
+
+document.getElementById('restartButton').addEventListener('click', function() {
+    initGame();
+    document.getElementById('guessButton').disabled = false;
+    document.getElementById('resetButton').style.display = 'none';
+})
+
 let selectedWord;
 let attempts;
 let guessedLetters;
@@ -52,6 +64,7 @@ function guessLetter() {
     if (attempts === 0) {
         document.getElementById('message').innerText = `¡Perdiste! La palabra era "${selectedWord}".`;
         document.getElementById('resetButton').style.display = 'block';
+        document.getElementById('guessButton').disabled = true;
     } else if (!wordDisplay.includes('_')) {
         document.getElementById('message').innerText = '¡Ganaste! ¡Felicidades!';
         document.getElementById('resetButton').style.display = 'block';
