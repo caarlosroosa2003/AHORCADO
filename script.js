@@ -112,7 +112,7 @@ function actualizarInterfaz() {
 // Actualiza la imagen dependiendo de los intentos que quedan
 function actualizarImagenes() {
   const imagen = document.getElementById("imagenAhorcado");
-  imagen.src = `img/${intentos + 1}.png`;
+  imagen.src = `IMG/${intentos + 1}.png`;
 }
 
 // Evento para cuando clicas en el botón de adivinar letra
