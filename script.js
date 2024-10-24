@@ -1,5 +1,5 @@
 // Lista de palabras para adivinar
-let words = [
+let palabras = [
     "PROGRAMACION", "DESARROLLO",
     "ELEFANTE", "DELFIN", "JIRAFA", "MARIPOSA", "CANGURO",
     "PIZZA", "HAMBURGUESA", "TORTILLA", "CHOCOLATE", "ENSALADA",
@@ -9,91 +9,94 @@ let words = [
 ];
 
 // Evento para resetear el juego
-document.getElementById('resetButton').addEventListener('click', function() {
-    initGame();
-    document.getElementById('guessButton').disabled = false;
-    document.getElementById('resetButton').style.display = 'none';
+document.getElementById('botonResetear').addEventListener('click', function() {
+    iniciarJuego();
+    document.getElementById('botonAdivinar').disabled = false;
+    document.getElementById('botonResetear').style.display = 'none';
 });
 
-// Evento para reiniciar el juego estando en mitad de la partida
-document.getElementById('restartButton').addEventListener('click', function() {
-    initGame();
-    document.getElementById('guessButton').disabled = false;
-    document.getElementById('resetButton').style.display = 'none';
+// Evento para reiniciar el juego durante la partida
+document.getElementById('botonReiniciar').addEventListener('click', function() {
+    iniciarJuego();
+    document.getElementById('botonAdivinar').disabled = false;
+    document.getElementById('botonResetear').style.display = 'none';
 })
 
-let selectedWord;
-let attempts;
-let guessedLetters;
-let wordDisplay;
+let palabraSeleccionada;
+let intentos;
+let letrasAdivinadas;
+let palabraMostrada;
 
 // Iniciar el juego
-function initGame() {
-    selectedWord = words[Math.floor(Math.random() * words.length)];
-    attempts = 6;
-    guessedLetters = [];
-    wordDisplay = Array(selectedWord.length).fill('_');
-    document.getElementById('word').innerText = wordDisplay.join(' ');
-    document.getElementById('attempts').innerText = attempts;
-    document.getElementById('message').innerText = '';
-    document.getElementById('letterInput').value = '';
-    document.getElementById('resetButton').style.display = 'none';
-    updateImages();
+function iniciarJuego() {
+  palabraSeleccionada = palabras[Math.floor(Math.random() * palabras.length)];
+  intentos = 6;
+  letrasAdivinadas = [];
+  palabraMostrada = Array(palabraSeleccionada.length).fill("_");
+  document.getElementById("palabra").innerText = palabraMostrada.join(" ");
+  document.getElementById("intentosRestantes").innerText = intentos;
+  document.getElementById("mensaje").innerText = "";
+  document.getElementById("entradaLetra").value = "";
+  document.getElementById("botonResetear").style.display = "none";
+  actualizarImagenes();
 }
 
-// Funcion que en el caso de acertar la letra actualiza la interfaz
-// y en el caso de ser erronea la letra resta un intento
-function guessLetter() {
-    const letterInput = document.getElementById('letterInput');
-    const letter = letterInput.value.toUpperCase();  // Convertir la letra ingresada a mayúsculas
-    
-    if (!letter || guessedLetters.includes(letter)) {
-        document.getElementById('message').innerText = 'Por favor, introduce una letra válida.';
-        return;
+// Función que actualiza la interfaz al acertar o fallar la letra
+function adivinarLetra() {
+  const entradaLetra = document.getElementById("entradaLetra");
+  const letra = entradaLetra.value.toUpperCase(); // Convertir la letra ingresada a mayúsculas
+
+  if (!letra || letrasAdivinadas.includes(letra)) {
+    document.getElementById("mensaje").innerText =
+      "Por favor, introduce una letra válida.";
+    return;
+  }
+
+  letrasAdivinadas.push(letra);
+  entradaLetra.value = "";
+
+  if (palabraSeleccionada.includes(letra)) {
+    for (let i = 0; i < palabraSeleccionada.length; i++) {
+      if (palabraSeleccionada[i] === letra) {
+        palabraMostrada[i] = letra;
+      }
     }
-    
-    guessedLetters.push(letter);
-    letterInput.value = '';
-    
-    if (selectedWord.includes(letter)) {
-        for (let i = 0; i < selectedWord.length; i++) {
-            if (selectedWord[i] === letter) {
-                wordDisplay[i] = letter;
-            }
-        }
-    } else {
-        attempts--;
-    }
-    
-    updateDisplay();
-    
-    if (attempts === 0) {
-        document.getElementById('message').innerText = `¡Perdiste! La palabra era "${selectedWord}".`;
-        document.getElementById('resetButton').style.display = 'block';
-        document.getElementById('guessButton').disabled = true;
-    } else if (!wordDisplay.includes('_')) {
-        document.getElementById('message').innerText = '¡Ganaste! ¡Felicidades!';
-        document.getElementById('resetButton').style.display = 'block';
-    }
+  } else {
+    intentos--;
+  }
+
+  actualizarInterfaz();
+
+  if (intentos === 0) {
+    document.getElementById(
+      "mensaje"
+    ).innerText = `¡Perdiste! La palabra era "${palabraSeleccionada}".`;
+    document.getElementById("botonResetear").style.display = "block";
+    document.getElementById("botonAdivinar").disabled = true;
+  } else if (!palabraMostrada.includes("_")) {
+    document.getElementById("mensaje").innerText = "¡Ganaste! ¡Felicidades!";
+    document.getElementById("botonResetear").style.display = "block";
+  }
 }
 
 // Actualiza la interfaz
-function updateDisplay() {
-    document.getElementById('word').innerText = wordDisplay.join(' ');
-    document.getElementById('attempts').innerText = attempts;
-    document.getElementById('message').innerText = '';
-    updateImages();
+function actualizarInterfaz() {
+  document.getElementById("palabra").innerText = palabraMostrada.join(" ");
+  document.getElementById("intentosRestantes").innerText = intentos;
+  document.getElementById("mensaje").innerText = "";
+  actualizarImagenes();
 }
 
 // Actualiza la imagen dependiendo de los intentos que quedan
-function updateImages() {
-    const image = document.getElementById('person');
-    image.src = `img/${attempts + 1}.png`;
+function actualizarImagenes() {
+  const imagen = document.getElementById("imagenAhorcado");
+  imagen.src = `img/${intentos + 1}.png`;
 }
 
-// Evento para cuando clickes en el boton de adivinar letra en el caso de acertar actualizar la interfaz
-// y en el caso de ser erronea la letra restarte un intento
-document.getElementById('guessButton').addEventListener('click', guessLetter);
+// Evento para cuando clicas en el botón de adivinar letra
+document
+  .getElementById("botonAdivinar")
+  .addEventListener("click", adivinarLetra);
 
 // Iniciar el juego al cargar la página
-initGame();
+iniciarJuego();

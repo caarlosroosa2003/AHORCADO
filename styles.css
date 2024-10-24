@@ -1,5 +1,5 @@
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: #f0f4f8;
   color: #333;
   margin: 0;
@@ -12,7 +12,7 @@ body {
   text-align: center;
 }
 
-.leftSide {
+.ladoIzquierdo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@ body {
   border-radius: 10px;
 }
 
-.rightSide {
+.ladoDerecho {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +44,7 @@ h1 {
   color: #4a90e2;
 }
 
-#word {
+#palabra {
   font-size: 2.5rem;
   letter-spacing: 0.5rem;
   margin: 20px 0;
@@ -73,27 +73,27 @@ button {
 }
 
 button:hover {
-  background-color: #357ABD;
+  background-color: #357abd;
 }
 
-#resetButton {
+#botonResetear {
   margin-top: 20px;
 }
 
-#message {
+#mensaje {
   margin: 20px 0;
   font-size: 1.2rem;
   color: #e74c3c;
   font-weight: bold;
 }
 
-#attempts {
+#intentosRestantes {
   font-size: 1.5rem;
   font-weight: bold;
   color: #333;
 }
 
-img#person {
+img#imagenAhorcado {
   margin: 10px 0;
   width: 250px;
   height: auto;
@@ -104,25 +104,25 @@ img#person {
 
 @media (max-width: 600px) {
   h1 {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
-  #word {
-      font-size: 2rem;
-      letter-spacing: 0.3rem;
+  #palabra {
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
   }
 
   input[type="text"] {
-      font-size: 1.2rem;
-      padding: 8px;
-      width: 40px;
+    font-size: 1.2rem;
+    padding: 8px;
+    width: 40px;
   }
 
   button {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   }
 
-  img#person {
-      width: 120px;
+  img#imagenAhorcado {
+    width: 120px;
   }
 }
